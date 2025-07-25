@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致瑶瑶的一封情书</title>
+    <style>
+        /* 基础样式：高级信纸质感背景 */
+        body {
+            font-family: 'Noto Serif SC', '微软雅黑', serif;
+            background-color: #f5efe4;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%23d9c7b8" stroke-width="0.5" stroke-dasharray="2,2"/></svg>'),
+                linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%);
+            background-size: 30px 30px, 100% 100%;
+            color: #3a3a3a;
+            margin: 0;
+            padding: 40px 0;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 容器：高级信封式卡片 */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #fffdfa 0%, #fff8f0 100%);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 
+                        0 0 0 1px rgba(255,255,255,0.8) inset;
+            padding: 60px;
+            position: relative;
+            border: 1px solid #e8d8c0;
+            animation: fadeIn 1s ease-out forwards;
+            z-index: 1;
+        }
+
+        /* 信封装饰效果 */
+        .container::before, .container::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            z-index: -1;
+        }
+        
+        .container::before {
+            top: -10px;
+            left: -10px;
+            border: 1px solid #e8d8c0;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .container::after {
+            bottom: -10px;
+            right: -10px;
+            border: 1px solid #e8d8c0;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* 标题样式 */
+        h1 {
+            color: #c87941;
+            font-size: 2.2em;
+            margin: 0 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0d9c0;
+            position: relative;
+            display: inline-block;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        h1::after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #c87941;
+            bottom: -1px;
+            left: 0;
+        }
+
+        /* 情书正文样式 */
+        .letter-content {
+            font-size: 1.05em;
+            text-align: left;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .letter-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%23f0d9c0" stroke-width="0.3" stroke-dasharray="1,3"/></svg>');
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .letter-content p {
+            margin: 25px 0;
+            padding-left: 1em;
+            text-indent: -1em;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        
+        .letter-content p::before {
+            content: "❧";
+            color: #c87941;
+            opacity: 0.6;
+            margin-right: 0.5em;
+        }
+        
+        .letter-content p:hover {
+            transform: translateX(10px);
+            color: #5a4a3a;
+        }
+
+        /* 诗歌样式 */
+        .poetry {
+            margin: 40px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(252,248,242,0.9) 0%, rgba(255,255,255,0.9) 100%);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            max-width: 90%;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .poetry::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(200,121,65,0.2);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        
+        .poetry p {
+            text-align: center;
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 1.1em;
+            color: #5a4a3a;
+        }
+
+        /* 轮播容器（高级版） */
+        .photo-slider {
+            margin: 40px 0;
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 轮播图片样式 */
+        .photo-slider img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 10px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: scale(0.95);
+        }
+
+        /* 轮播视频样式 */
+        .photo-slider video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 10px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: scale(0.95);
+        }
+
+        /* 当前显示的元素 */
+        .photo-slider img.active,
+        .photo-slider video.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+
+        /* 图片/视频说明文字 */
+        .photo-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 30px;
+            z-index: 2;
+            font-size: 0.95em;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* 轮播指示器 */
+        .slider-indicators {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+        }
+        
+        .slider-indicators span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .slider-indicators span.active {
+            background-color: #c87941;
+            transform: scale(1.2);
+        }
+
+        /* 音频播放器样式 */
+        .music-player {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fcf8f2;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        audio {
+            width: 80%;
+            outline: none;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+        }
+        
+        .music-note {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            font-size: 0.95em;
+            color: #888;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #f0d9c0;
+            text-align: right;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .footer p:last-child {
+            color: #c87941;
+            font-weight: bold;
+        }
+
+        /* 花瓣飘落效果 */
+        #petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+        
+        .petal {
+            position: absolute;
+            background-size: contain;
+            opacity: 0.8;
+            animation: falling linear infinite;
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes falling {
+            0% {
+                transform: translate(0, -10%) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--end-x), 100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+                width: 95%;
+            }
+            
+            .container::before, .container::after {
+                width: 30px;
+                height: 30px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .letter-content p {
+                font-size: 0.95em;
+            }
+            
+            .poetry {
+                padding: 20px;
+            }
+            
+            .photo-slider {
+                height: 300px;
+            }
+            
+            audio {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 花瓣容器 -->
+    <div id="petals"></div>
+    
+    <!-- 主容器 -->
+    <div class="container">
+        <h1>致我最爱的瑶瑶</h1>
+        
+        <div class="letter-content">
+            <p>这些天的晚上，我每天翻着你送我的相册，看着里面两个人的回忆，看着照片中你举着手机的自拍照，我的内心突然变得十分落寞。三年的时光从指缝间溜走，留下的只有那些被距离拉长的思念和此刻无法安放的痛苦。</p>
+            
+            <p>以前总觉得异地恋是电影里浪漫的注脚，可真的到了自己身上才发现，我们明明互相牵挂，却连拥抱都要等着假期。也许爱情最残酷的地方，就是明知道没有结果，却还要全力以赴。我不后悔这三年的等待与坚守，就像不后悔当初爱上你时的那份笃定。只是遗憾没能给你一个触手可及的拥抱，没能把承诺变成看得见的未来。</p>
+            
+            <p>原来最孤独的不是灯照不亮心，是心明明装着整片海，却连一艘能靠岸的船，都不敢再造。</p>
+            
+            <div class="poetry">
+                <p>三载沧溟隔洛川，崂峰望断九重烟。<br>
+                曾共燕矶拾贝屑，犹温鱼岭看霞天。<br>
+                邮筒空叠前海月，旧帕犹沾故里烟。<br>
+                今登信号山巅望，云深似有故人肩。</p>
+                
+                <p>也许命运就是这样，有些爱情像一杯刚泡好的茶，初遇时沸水翻涌着香气，你递来的温度还烫着指尖；可后来不知何时，茶凉了，杯底沉着未续的水，我们也默契地换了各自的新杯子。</p>
+                
+                <p>你说我会找到更好的，可对于深爱着你的我来说，你就是最好的。我不想放手也不愿放手，因为我爱你，所以我不想把你交给其他素未谋面的人。茶凉了可以再续，可有些人，一旦错过，就是一生的伏笔。</p>
+            </div>
+            
+            <!-- 轮播区域 -->
+            <div class="photo-slider">
+                <!-- 图片列表 -->
+                <img src="image/小鱼山.jpg" alt="回忆1" data-caption="小鱼山上的我们，笑容如阳光般灿烂">
+                <img src="image/吃烧烤.jpg" alt="回忆2" data-caption="深夜的烧烤摊，你总是点我最爱的羊肉串">
+                <img src="image/海边 (2).jpg" alt="回忆3" data-caption="海风吹起你的长发，那一刻我仿佛看到了永恒">
+                <img src="image/海边.jpg" alt="回忆4" data-caption="我们在海边留下的足迹，海浪带不走我们的回忆">
+                <img src="image/看电影.jpg" alt="回忆5" data-caption="电影院的黑暗中，你靠在我肩头的温度">
+                <img src="image/苏州寒山寺.jpg" alt="回忆6" data-caption="苏州寒山寺前，我们许下的心愿">
+                <img src="image/逛商场.jpg" alt="回忆7" data-caption="逛商场时你试戴帽子的可爱模样">
+                
+                <!-- 视频 -->
+                <video 
+                    src="image/e8b85673177928e55d41b0afdb15a259.mp4" 
+                    controls 
+                    autoplay
+                    muted
+                    data-caption="你最喜欢的海边视频，我珍藏至今"
+                ></video>
+                
+                <!-- 说明文字 -->
+                <div class="photo-caption"></div>
+                
+                <!-- 轮播指示器 -->
+                <div class="slider-indicators"></div>
+            </div>
+            
+            <p>每次翻看这些照片，我都能清晰地回忆起当时的场景、气味、温度，甚至是你眼角笑出的细纹。这些记忆像老电影一样在我脑海中循环播放，而我甘愿做那个永远不愿离场的观众。</p>
+            
+            <p>如果时光可以倒流，我依然会选择在那个阳光正好的午后，走向正在图书馆看书的你。即使知道结局，我也愿意重新经历这一切，因为与你相遇的每一秒，都是我生命中最珍贵的礼物。</p>
+        </div>
+        
+        <!-- 音频播放器 -->
+        <div class="music-player">
+            <audio autoplay loop preload="auto">
+                <source src="M500003ovmka19cFAP.mp3" type="audio/mpeg">
+                您的浏览器不支持音频播放
+            </audio>
+            <p class="music-note">《不分手的恋爱》—— 我们最喜欢的那首歌，如今听起来却如此心酸</p>
+        </div>
+        
+        <!-- 页脚落款 -->
+        <div class="footer">
+            <p>写于2025年春夜（想你的第108天）</p>
+            <p>永远爱你的王洋</p>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载动画和花瓣效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建花瓣
+            function createPetals() {
+                const petalsContainer = document.getElementById('petals');
+                const petalCount = 15;
+                const petalTypes = 3;
+                
+                for (let i = 0; i < petalCount; i++) {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    
+                    // 随机选择花瓣类型
+                    const petalType = Math.floor(Math.random() * petalTypes) + 1;
+                    petal.style.backgroundImage = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23${Math.random() > 0.5 ? 'e88a8a' : 'f5b8b8'}" d="M50,15 C55,5 65,5 70,15 C80,30 85,40 75,50 C85,60 80,70 70,85 C65,95 55,95 50,85 C45,95 35,95 30,85 C20,70 15,60 25,50 C15,40 20,30 30,15 C35,5 45,5 50,15 Z"/></svg>')`;
+                    
+                    // 随机大小
+                    const size = Math.random() * 20 + 10;
+                    petal.style.width = `${size}px`;
+                    petal.style.height = `${size}px`;
+                    
+                    // 随机位置和动画
+                    petal.style.left = `${Math.random() * 100}vw`;
+                    petal.style.setProperty('--end-x', `${(Math.random() - 0.5) * 100}px`);
+                    
+                    // 随机动画时间和延迟
+                    const duration = Math.random() * 15 + 10;
+                    petal.style.animationDuration = `${duration}s`;
+                    petal.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    petalsContainer.appendChild(petal);
+                }
+            }
+            
+            // 轮播图功能
+            function initSlider() {
+                const slider = document.querySelector('.photo-slider');
+                const items = slider.querySelectorAll('img, video');
+                const caption = slider.querySelector('.photo-caption');
+                const indicators = slider.querySelector('.slider-indicators');
+                let currentIndex = 0;
+                const intervalTime = 5000;
+                let timer;
+
+                // 创建指示器
+                items.forEach((item, index) => {
+                    const dot = document.createElement('span');
+                    dot.addEventListener('click', () => switchItem(index));
+                    indicators.appendChild(dot);
+                });
+                const dots = indicators.querySelectorAll('span');
+
+                // 高级切换效果
+                function switchItem(index) {
+                    // 淡出当前项
+                    const currentItem = items[currentIndex];
+                    if (currentItem.tagName === 'VIDEO') {
+                        currentItem.pause();
+                        currentItem.removeEventListener('ended', onVideoEnded);
+                    }
+                    
+                    currentItem.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    currentItem.style.opacity = '0';
+                    currentItem.style.transform = 'scale(0.95)';
+                    currentItem.classList.remove('active');
+                    dots[currentIndex].classList.remove('active');
+
+                    // 更新索引
+                    currentIndex = index;
+                    const targetItem = items[currentIndex];
+                    
+                    // 淡入新项
+                    setTimeout(() => {
+                        targetItem.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                        targetItem.style.opacity = '1';
+                        targetItem.style.transform = 'scale(1)';
+                        targetItem.classList.add('active');
+                        dots[currentIndex].classList.add('active');
+                        caption.textContent = targetItem.dataset.caption;
+
+                        if (targetItem.tagName === 'VIDEO') {
+                            clearInterval(timer);
+                            targetItem.play();
+                            targetItem.addEventListener('ended', onVideoEnded);
+                        } else {
+                            clearInterval(timer);
+                            startTimer();
+                        }
+                    }, 100);
+                }
+
+                function onVideoEnded() {
+                    const nextIndex = (currentIndex + 1) % items.length;
+                    switchItem(nextIndex);
+                }
+
+                function startTimer() {
+                    timer = setInterval(() => {
+                        const nextIndex = (currentIndex + 1) % items.length;
+                        switchItem(nextIndex);
+                    }, intervalTime);
+                }
+
+                // 初始化
+                switchItem(0);
+                
+                // 添加鼠标悬停暂停功能
+                slider.addEventListener('mouseenter', () => clearInterval(timer));
+                slider.addEventListener('mouseleave', () => {
+                    if (items[currentIndex].tagName !== 'VIDEO') {
+                        startTimer();
+                    }
+                });
+            }
+            
+            // 音频自动播放
+            function initAudio() {
+                const audio = document.querySelector('audio');
+                // 尝试自动播放
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        // 自动播放失败，添加点击页面播放功能
+                        document.body.addEventListener('click', () => {
+                            audio.play().catch(err => console.log('音频播放失败:', err));
+                        }, { once: true });
+                    });
+                }
+            }
+            
+            // 初始化所有功能
+            createPetals();
+            initSlider();
+            initAudio();
+        });
+    </script>
+</body>
+</html>
